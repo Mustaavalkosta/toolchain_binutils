@@ -288,18 +288,6 @@ large_symbol_alignment_SOURCES = large_symbol_alignment.cc
 large_symbol_alignment_DEPENDENCIES = gcctestdir/ld
 large_symbol_alignment_LDFLAGS = -Bgcctestdir/
 
-check_SCRIPTS += merge_string_literals.sh
-check_DATA += merge_string_literals.stdout
-MOSTLYCLEANFILES += merge_string_literals
-merge_string_literals_1.o: merge_string_literals_1.c
-	$(CXXCOMPILE) -O2 -c -fPIC -g -o $@ $<
-merge_string_literals_2.o: merge_string_literals_2.c
-	$(CXXCOMPILE) -O2 -c -fPIC -g -o $@ $<
-merge_string_literals: merge_string_literals_1.o merge_string_literals_2.o gcctestdir/ld
-	$(CXXLINK) -Bgcctestdir/ merge_string_literals_1.o merge_string_literals_2.o -O2 -shared -nostdlib
-merge_string_literals.stdout: merge_string_literals
-	$(TEST_OBJDUMP) -s -j.rodata merge_string_literals > merge_string_literals.stdout
-
 check_PROGRAMS += basic_test
 check_PROGRAMS += basic_pic_test
 basic_test.o: basic_test.cc
